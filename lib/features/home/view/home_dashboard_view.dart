@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../mona_ai/view/mona_ai_screen.dart';
+import '../../settings/view/settings_screen.dart';
 
 /// Home Dashboard - Trust-first pediatric app design
 /// Goal: Instantly calm parents, build medical trust, make child health
@@ -12,6 +14,7 @@ class HomeDashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
+      floatingActionButton: _MonaAIFab(),
       body: SafeArea(
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
@@ -166,7 +169,13 @@ class _AppHeader extends StatelessWidget {
             const SizedBox(width: 10),
             _HeaderIconButton(
               icon: Icons.settings_outlined,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
@@ -1896,6 +1905,68 @@ class _NetworkImageWithFallback extends StatelessWidget {
           fallbackIcon,
           size: 48,
           color: AppColors.primary.withValues(alpha: 0.3),
+        ),
+      ),
+    );
+  }
+}
+
+// ============================================================================
+// MONA AI FLOATING ACTION BUTTON
+// ============================================================================
+
+class _MonaAIFab extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (_) => const MonaAIScreen()),
+        );
+      },
+      child: Container(
+        width: 64,
+        height: 64,
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [AppColors.primary, AppColors.secondary],
+          ),
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.primary.withValues(alpha: 0.4),
+              blurRadius: 16,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // AI Icon
+            const Icon(
+              Icons.auto_awesome,
+              color: Colors.white,
+              size: 28,
+            ),
+            // Pulse animation dot
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Container(
+                width: 12,
+                height: 12,
+                decoration: BoxDecoration(
+                  color: AppColors.success,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.white, width: 2),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'core/theme/app_theme.dart';
 import 'core/constants/app_constants.dart';
+import 'features/auth/view/login_screen.dart';
 import 'features/home/view/home_screen.dart';
 import 'features/consult/view/consult_screen.dart';
 import 'features/track/view/track_screen.dart';
@@ -16,7 +18,37 @@ class SishuApp extends StatelessWidget {
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light,
-      home: const MainNavigationShell(),
+      home: const AuthWrapper(),
+    );
+  }
+}
+
+/// Wrapper that listens to auth state and shows appropriate screen
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        // Show loading while checking auth state
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        // User is signed in - go to main app
+        if (snapshot.hasData) {
+          return const MainNavigationShell();
+        }
+
+        // User is not signed in - show login
+        return const LoginScreen();
+      },
     );
   }
 }

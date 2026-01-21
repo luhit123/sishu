@@ -3,51 +3,52 @@ import 'package:flutter/material.dart';
 /// Sishu app color palette
 /// Designed for calm, soothing pediatric UI with trust-first approach
 /// Soft pastels that feel warm, safe, and child-friendly
+/// Enhanced contrast for better readability
 abstract final class AppColors {
-  // Primary: Soft Sage Green - calming, natural, growth
-  static const Color primary = Color(0xFF56AB91);
-  static const Color primaryLight = Color(0xFF85CBBA);
-  static const Color primaryDark = Color(0xFF3E8E76);
-  static const Color primaryPastel = Color(0xFFE8F5F0);
+  // Primary: Sage Green - calming, natural, growth
+  static const Color primary = Color(0xFF3D9070);  // Deeper rich green
+  static const Color primaryLight = Color(0xFF6BB89A);
+  static const Color primaryDark = Color(0xFF2A6B52);  // Much darker
+  static const Color primaryPastel = Color(0xFFDEEFE7);
 
-  // Secondary: Soft Sky Blue - trust, clarity, calm
-  static const Color secondary = Color(0xFF7CACCF);
-  static const Color secondaryLight = Color(0xFFA9CBE5);
-  static const Color secondaryDark = Color(0xFF5C8AB5);
-  static const Color secondaryPastel = Color(0xFFE8F4FA);
+  // Secondary: Sky Blue - trust, clarity, calm
+  static const Color secondary = Color(0xFF5A90B8);  // Deeper blue
+  static const Color secondaryLight = Color(0xFF8BB8D5);
+  static const Color secondaryDark = Color(0xFF3D6F94);  // Much darker
+  static const Color secondaryPastel = Color(0xFFDEEDF5);
 
-  // Accent Colors - Soothing pastels for variety
-  static const Color lavender = Color(0xFFB4A7D6);
-  static const Color lavenderLight = Color(0xFFE8E4F3);
-  static const Color peach = Color(0xFFF5C0A8);
-  static const Color peachLight = Color(0xFFFFF0E8);
-  static const Color mintCream = Color(0xFFA8E6CF);
-  static const Color mintCreamLight = Color(0xFFE8FBF2);
-  static const Color softPink = Color(0xFFF4B8C5);
-  static const Color softPinkLight = Color(0xFFFEF0F3);
-  static const Color softYellow = Color(0xFFF9E79F);
-  static const Color softYellowLight = Color(0xFFFFFBE8);
-  static const Color softCoral = Color(0xFFF8B4B4);
-  static const Color softCoralLight = Color(0xFFFFF0F0);
+  // Accent Colors - Richer pastels for better visibility
+  static const Color lavender = Color(0xFF9080BC);  // Richer purple
+  static const Color lavenderLight = Color(0xFFDED9EB);
+  static const Color peach = Color(0xFFEB9A70);  // Richer peach
+  static const Color peachLight = Color(0xFFFCE6DA);
+  static const Color mintCream = Color(0xFF70CCA0);  // Richer mint
+  static const Color mintCreamLight = Color(0xFFDAF5E8);
+  static const Color softPink = Color(0xFFEB8FA0);  // Deeper pink
+  static const Color softPinkLight = Color(0xFFFBE5EA);
+  static const Color softYellow = Color(0xFFF0C840);  // Rich gold
+  static const Color softYellowLight = Color(0xFFFCF4D6);
+  static const Color softCoral = Color(0xFFF08888);  // Richer coral
+  static const Color softCoralLight = Color(0xFFFCE5E5);
 
-  // Background: Warm off-white with hint of warmth
-  static const Color background = Color(0xFFFAFBF9);
+  // Background: Warm off-white
+  static const Color background = Color(0xFFF6F8F5);
   static const Color surface = Color(0xFFFFFFFF);
-  static const Color surfaceVariant = Color(0xFFF5F6F4);
-  static const Color surfaceWarm = Color(0xFFFFFCF8);
+  static const Color surfaceVariant = Color(0xFFEBEDE9);  // More visible
+  static const Color surfaceWarm = Color(0xFFFFF8F2);
 
-  // Text colors
-  static const Color textPrimary = Color(0xFF2C3E50);
-  static const Color textSecondary = Color(0xFF6C7A89);
-  static const Color textHint = Color(0xFF95A5A6);
+  // Text colors (stronger contrast for readability)
+  static const Color textPrimary = Color(0xFF1A2530);  // Much darker
+  static const Color textSecondary = Color(0xFF4D5B68);  // Darker
+  static const Color textHint = Color(0xFF7A8B96);  // Darker hints
 
-  // Feedback colors - Muted and non-alarming
-  static const Color error = Color(0xFFE58F78);
-  static const Color errorLight = Color(0xFFFEECE8);
-  static const Color success = Color(0xFF81B29A);
-  static const Color successLight = Color(0xFFE8F5EE);
-  static const Color warning = Color(0xFFE9C46A);
-  static const Color warningLight = Color(0xFFFFF8E8);
-  static const Color info = Color(0xFF7CACCF);
-  static const Color infoLight = Color(0xFFE8F4FA);
+  // Feedback colors - Richer but still non-alarming
+  static const Color error = Color(0xFFD96850);  // Richer red-orange
+  static const Color errorLight = Color(0xFFFBE3DD);
+  static const Color success = Color(0xFF5A9575);  // Richer green
+  static const Color successLight = Color(0xFFDDEFE5);
+  static const Color warning = Color(0xFFDEA530);  // Rich amber
+  static const Color warningLight = Color(0xFFFCF0D4);
+  static const Color info = Color(0xFF5A90B8);
+  static const Color infoLight = Color(0xFFDEEDF5);
 }
