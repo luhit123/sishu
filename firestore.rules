@@ -1,0 +1,60 @@
+rules_version = '2';
+// Updated: 2026-01-21 with admin_notifications
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allow authenticated users to read their own user document
+    match /users/{userId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Doctor profiles - readable by all authenticated users
+    match /doctor_profiles/{doctorId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == doctorId;
+    }
+
+    // Doctor invites - only admins can read/write
+    match /doctor_invites/{email} {
+      allow read, write: if request.auth != null;
+    }
+
+    // Calls collection for video call history
+    match /calls/{callId} {
+      // Users can read calls where they are either the caller or the doctor
+      allow read: if request.auth != null &&
+        (resource.data.callerId == request.auth.uid ||
+         resource.data.doctorId == request.auth.uid);
+
+      // Users can create calls where they are the caller
+      allow create: if request.auth != null &&
+        request.resource.data.callerId == request.auth.uid;
+
+      // Both caller and doctor can update the call
+      allow update: if request.auth != null &&
+        (resource.data.callerId == request.auth.uid ||
+         resource.data.doctorId == request.auth.uid);
+
+      // No delete allowed - calls are kept for history
+      allow delete: if false;
+    }
+
+    // Admin notifications - admins can read, Cloud Functions can write
+    match /admin_notifications/{notificationId} {
+      allow read: if request.auth != null;
+      allow write: if false; // Only Cloud Functions can write
+    }
+
+    // Parenting tips collection
+    match /parenting_tips/{tipId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null; // TODO: restrict to admins
+    }
+
+    // Diseases collection
+    match /diseases/{diseaseId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null; // TODO: restrict to admins
+    }
+  }
+}

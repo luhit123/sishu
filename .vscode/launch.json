@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "sishu",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--web-port",
+                "5000"
+            ]
+        },
+        {
+            "name": "sishu (profile)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--web-port",
+                "5000"
+            ]
+        },
+        {
+            "name": "sishu (release)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--web-port",
+                "5000"
+            ]
+        }
+    ]
+}

@@ -1,6 +1,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Permissions for voice features -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+
+    <!-- Permissions for video calling -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <!-- Permission for push notifications (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+
+    <!-- Features for video calling -->
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
+
     <application
-        android:label="sishu"
+        android:label="XoruCare"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -30,6 +55,42 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
+        <!-- FCM default notification channel -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="high_importance_channel" />
+
+        <!-- FCM default notification icon -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+
+        <!-- FCM default notification color -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/notification_color" />
+
+        <!-- flutter_callkit_incoming receiver for background calls -->
+        <receiver
+            android:name="com.hiennv.flutter_callkit_incoming.CallkitIncomingBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_INCOMING" />
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_START" />
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_ACCEPT" />
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_DECLINE" />
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_ENDED" />
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_TIMEOUT" />
+                <action android:name="com.hiennv.flutter_callkit_incoming.ACTION_CALL_CALLBACK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- flutter_callkit_incoming foreground service for ongoing calls -->
+        <service
+            android:name="com.hiennv.flutter_callkit_incoming.CallkitIncomingService"
+            android:foregroundServiceType="phoneCall|microphone|camera"
+            android:exported="false" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

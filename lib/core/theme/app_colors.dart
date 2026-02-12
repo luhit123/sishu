@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Sishu app color palette
+/// XoruCare app color palette
 /// Designed for calm, soothing pediatric UI with trust-first approach
 /// Soft pastels that feel warm, safe, and child-friendly
 /// Enhanced contrast for better readability

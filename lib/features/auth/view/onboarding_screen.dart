@@ -479,13 +479,13 @@ class _OnboardingPageState extends State<_OnboardingPage>
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Faint "Sishu" background text
+        // Faint "XoruCare" background text
         Positioned.fill(
           child: Center(
             child: Transform.rotate(
               angle: -0.15,
               child: Text(
-                'Sishu',
+                'XoruCare',
                 style: TextStyle(
                   fontSize: 140,
                   fontWeight: FontWeight.w900,

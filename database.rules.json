@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "calls": {
+      "$callId": {
+        ".read": "auth != null",
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['offer']) || newData.hasChildren(['answer']) || newData.hasChildren(['candidates']) || newData.hasChild('status')"
+      }
+    }
+  }
+}

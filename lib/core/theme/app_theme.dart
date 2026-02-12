@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
-/// Sishu app theme configuration
+/// XoruCare app theme configuration
 /// Material 3 with calm, trust-first design principles
 abstract final class AppTheme {
   static ThemeData get light {

@@ -1,15 +1,49 @@
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/services/auth_service.dart';
+import '../../../core/models/user_model.dart';
+import '../../admin/view/admin_dashboard.dart';
+import '../../doctor/view/doctor_dashboard.dart';
+import '../../call/view/call_history_screen.dart';
 
 /// Settings Screen with user account options
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final authService = AuthService();
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
 
+class _SettingsScreenState extends State<SettingsScreen> {
+  final AuthService _authService = AuthService();
+  bool _isLoading = true;
+  UserRole _userRole = UserRole.user;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserRole();
+  }
+
+  Future<void> _loadUserRole() async {
+    try {
+      await _authService.refreshUserModel();
+    } catch (e) {
+      // Continue with cached/default role if Firestore is unavailable
+    }
+    if (mounted) {
+      setState(() {
+        _userRole = _authService.currentRole;
+        _isLoading = false;
+      });
+    }
+  }
+
+  bool get _isAdmin => _userRole == UserRole.admin;
+  bool get _isDoctor => _userRole == UserRole.doctor;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -30,90 +64,168 @@ class SettingsScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.all(20),
-          children: [
-            // User Profile Section
-            _buildUserProfileSection(authService),
-            const SizedBox(height: 24),
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  // User Profile Section
+                  _buildUserProfileSection(_authService),
+                  const SizedBox(height: 24),
 
-            // Settings Options
-            _SettingsSection(
-              title: 'Account',
-              children: [
-                _SettingsTile(
-                  icon: Icons.person_outline_rounded,
-                  title: 'Edit Profile',
-                  onTap: () {
-                    // TODO: Navigate to edit profile
-                  },
-                ),
-                _SettingsTile(
-                  icon: Icons.notifications_outlined,
-                  title: 'Notifications',
-                  onTap: () {
-                    // TODO: Navigate to notifications settings
-                  },
-                ),
-                _SettingsTile(
-                  icon: Icons.lock_outline_rounded,
-                  title: 'Privacy',
-                  onTap: () {
-                    // TODO: Navigate to privacy settings
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
+                  // Role-Based Dashboard Access
+                  if (_isAdmin || _isDoctor) ...[
+                    _SettingsSection(
+                      title: 'Dashboard',
+                      children: [
+                        if (_isAdmin)
+                          _SettingsTile(
+                            icon: Icons.admin_panel_settings_outlined,
+                            title: 'Admin Dashboard',
+                            iconColor: AppColors.lavender,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const AdminDashboard(),
+                                ),
+                              );
+                            },
+                          ),
+                        if (_isDoctor)
+                          _SettingsTile(
+                            icon: Icons.medical_services_outlined,
+                            title: 'Doctor Dashboard',
+                            iconColor: AppColors.success,
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => const DoctorDashboard(),
+                                ),
+                              );
+                            },
+                          ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                  ],
 
-            _SettingsSection(
-              title: 'Support',
-              children: [
-                _SettingsTile(
-                  icon: Icons.help_outline_rounded,
-                  title: 'Help & Support',
-                  onTap: () {
-                    // TODO: Navigate to help
-                  },
-                ),
-                _SettingsTile(
-                  icon: Icons.info_outline_rounded,
-                  title: 'About',
-                  onTap: () {
-                    // TODO: Navigate to about
-                  },
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
+                  // Settings Options
+                  _SettingsSection(
+                    title: 'Account',
+                    children: [
+                      _SettingsTile(
+                        icon: Icons.person_outline_rounded,
+                        title: 'Edit Profile',
+                        onTap: () {
+                          // TODO: Navigate to edit profile
+                        },
+                      ),
+                      _SettingsTile(
+                        icon: Icons.videocam_outlined,
+                        title: 'Call History',
+                        iconColor: AppColors.success,
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) => const CallHistoryScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                      _SettingsTile(
+                        icon: Icons.notifications_outlined,
+                        title: 'Notifications',
+                        onTap: () {
+                          // TODO: Navigate to notifications settings
+                        },
+                      ),
+                      _SettingsTile(
+                        icon: Icons.lock_outline_rounded,
+                        title: 'Privacy',
+                        onTap: () {
+                          // TODO: Navigate to privacy settings
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
 
-            // Logout Section
-            _SettingsSection(
-              title: '',
-              children: [
-                _SettingsTile(
-                  icon: Icons.logout_rounded,
-                  title: 'Log Out',
-                  iconColor: AppColors.error,
-                  titleColor: AppColors.error,
-                  onTap: () => _showLogoutDialog(context, authService),
-                ),
-              ],
-            ),
-            const SizedBox(height: 32),
+                  _SettingsSection(
+                    title: 'Support',
+                    children: [
+                      _SettingsTile(
+                        icon: Icons.help_outline_rounded,
+                        title: 'Help & Support',
+                        onTap: () {
+                          // TODO: Navigate to help
+                        },
+                      ),
+                      _SettingsTile(
+                        icon: Icons.info_outline_rounded,
+                        title: 'About',
+                        onTap: () {
+                          // TODO: Navigate to about
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
 
-            // App Version
-            Center(
-              child: Text(
-                'Sishu v1.0.0',
-                style: TextStyle(
-                  color: AppColors.textSecondary.withValues(alpha: 0.6),
-                  fontSize: 12,
-                ),
+                  // Logout Section
+                  _SettingsSection(
+                    title: '',
+                    children: [
+                      _SettingsTile(
+                        icon: Icons.logout_rounded,
+                        title: 'Log Out',
+                        iconColor: AppColors.error,
+                        titleColor: AppColors.error,
+                        onTap: () => _showLogoutDialog(context, _authService),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+
+                  // App Version with Role Badge
+                  Center(
+                    child: Column(
+                      children: [
+                        if (_isAdmin || _isDoctor)
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 4,
+                            ),
+                            decoration: BoxDecoration(
+                              color: _isAdmin
+                                  ? AppColors.lavender.withValues(alpha: 0.1)
+                                  : AppColors.success.withValues(alpha: 0.1),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              _isAdmin ? 'Admin' : 'Doctor',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: _isAdmin
+                                    ? AppColors.lavender
+                                    : AppColors.success,
+                              ),
+                            ),
+                          ),
+                        Text(
+                          'XoruCare v1.0.0',
+                          style: TextStyle(
+                            color: AppColors.textSecondary.withValues(alpha: 0.6),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
-        ),
       ),
     );
   }

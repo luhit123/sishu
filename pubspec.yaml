@@ -17,7 +17,34 @@ dependencies:
   firebase_auth: ^5.3.4
   cloud_firestore: ^5.6.0
   firebase_storage: ^12.4.0
+  firebase_app_check: ^0.3.2+1
   google_sign_in: ^6.2.2
+  image_picker: ^1.0.7
+
+  # HTTP for API calls
+  http: ^1.2.0
+  flutter_dotenv: ^5.1.0
+  shared_preferences: ^2.3.2
+
+  # Voice features
+  just_audio: ^0.9.36
+  speech_to_text: ^7.0.0
+  path_provider: ^2.1.2
+  permission_handler: ^11.3.0
+
+  # Video calling (100ms)
+  hmssdk_flutter: ^1.10.3
+  flutter_webrtc: ^1.2.1
+  firebase_database: ^11.0.0
+  firebase_messaging: ^15.0.0
+  flutter_callkit_incoming: ^2.0.4
+  wakelock_plus: ^1.2.0
+  uuid: ^4.0.0
+  cloud_functions: ^5.0.0
+  intl: ^0.19.0
+
+  # Local notifications (for creating notification channels)
+  flutter_local_notifications: ^18.0.0
 
 dev_dependencies:
   flutter_test:
@@ -29,3 +56,4 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - .env

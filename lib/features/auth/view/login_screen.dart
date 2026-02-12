@@ -89,7 +89,7 @@ class LoginScreen extends StatelessWidget {
                     children: [
                       // Welcome text
                       const Text(
-                        'Welcome to Sishu',
+                        'Welcome to XoruCare',
                         style: TextStyle(
                           fontSize: 32,
                           fontWeight: FontWeight.w700,
