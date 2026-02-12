@@ -1,0 +1,20 @@
+<svg width="360" height="220" viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF1E7"/>
+      <stop offset="100%" stop-color="#E9FAF1"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="220" rx="28" fill="url(#g4)"/>
+  <rect x="28" y="40" width="304" height="140" rx="20" fill="#FFFFFF" fill-opacity="0.92"/>
+  <ellipse cx="180" cy="126" rx="104" ry="44" fill="#E8F6EF"/>
+  <circle cx="132" cy="110" r="16" fill="#FFA45E"/>
+  <circle cx="171" cy="106" r="14" fill="#7ED0A6"/>
+  <circle cx="204" cy="114" r="13" fill="#F7D477"/>
+  <circle cx="232" cy="101" r="12" fill="#F38571"/>
+  <ellipse cx="154" cy="126" rx="17" ry="9" fill="#FFFFFF" fill-opacity="0.68"/>
+  <rect x="80" y="56" width="98" height="14" rx="7" fill="#FFE6D2"/>
+  <rect x="80" y="78" width="138" height="10" rx="5" fill="#F4ECE5"/>
+  <rect x="248" y="60" width="62" height="28" rx="14" fill="#2FAE86"/>
+  <text x="279" y="78" text-anchor="middle" font-size="13" font-family="Arial, sans-serif" font-weight="700" fill="#FFFFFF">Meal</text>
+</svg>

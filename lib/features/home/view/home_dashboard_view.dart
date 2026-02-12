@@ -72,7 +72,7 @@ class _HomeDashboardViewState extends State<HomeDashboardView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5FAFF),
+      backgroundColor: AppColors.background,
       floatingActionButton: const _MonaAIFab(),
       body: SafeArea(
         child: Stack(
@@ -84,9 +84,9 @@ class _HomeDashboardViewState extends State<HomeDashboardView>
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xFFF5FAFF),
-                      Color(0xFFEEF7FF),
-                      Color(0xFFEEFBF6),
+                      AppColors.background,
+                      AppColors.secondaryPastel,
+                      AppColors.primaryPastel,
                     ],
                   ),
                 ),
@@ -145,30 +145,26 @@ class _HomeDashboardViewState extends State<HomeDashboardView>
                 ),
                 _buildAnimatedSection(
                   index: 4,
-                  child: const _VisualStoriesStrip(),
-                ),
-                _buildAnimatedSection(
-                  index: 5,
                   child: const _QuickActionsSection(),
                 ),
                 _buildAnimatedSection(
-                  index: 6,
+                  index: 5,
                   child: const _HealthSnapshotSection(),
                 ),
                 _buildAnimatedSection(
-                  index: 7,
+                  index: 6,
                   child: const _MilestoneTrackerCard(),
                 ),
                 _buildAnimatedSection(
-                  index: 8,
+                  index: 7,
                   child: const _DiseaseAwarenessSection(),
                 ),
                 _buildAnimatedSection(
-                  index: 9,
+                  index: 8,
                   child: const _TipsAndArticlesSection(),
                 ),
                 _buildAnimatedSection(
-                  index: 10,
+                  index: 9,
                   padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
                   child: const _TrustSignalFooter(),
                 ),
@@ -355,7 +351,7 @@ class _AppHeaderState extends State<_AppHeader> {
                     ),
                     decoration: BoxDecoration(
                       gradient: const LinearGradient(
-                        colors: [Color(0xFF2E8E6E), Color(0xFF23654F)],
+                        colors: [AppColors.primary, AppColors.primaryDark],
                       ),
                       borderRadius: BorderRadius.circular(10),
                       boxShadow: [
@@ -494,9 +490,9 @@ class _HeroBanner extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            Color(0xFFDAF7EE),
-            Color(0xFFD8ECFF),
-            Color(0xFFFFE6D8),
+            AppColors.primaryPastel,
+            AppColors.secondaryPastel,
+            AppColors.peachLight,
           ],
           stops: [0.0, 0.45, 1.0],
         ),
@@ -578,45 +574,76 @@ class _HeroBanner extends StatelessWidget {
                       const SizedBox(height: 14),
                       InkWell(
                         onTap: onPrimaryTap,
-                        borderRadius: BorderRadius.circular(26),
+                        borderRadius: BorderRadius.circular(32),
                         child: Ink(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 10,
+                            horizontal: 20,
+                            vertical: 14,
                           ),
                           decoration: BoxDecoration(
                             gradient: const LinearGradient(
-                              colors: [Color(0xFF2EA87E), Color(0xFF1F6D56)],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: [
+                                Color(0xFFFFE169),
+                                Color(0xFFFFBE3B),
+                              ],
                             ),
-                            borderRadius: BorderRadius.circular(26),
+                            borderRadius: BorderRadius.circular(32),
                             border: Border.all(
-                              color: Colors.white.withValues(alpha: 0.45),
+                              color: const Color(0xFF2B1A00).withValues(alpha: 0.2),
+                              width: 1.6,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: AppColors.primaryDark
-                                    .withValues(alpha: 0.42),
-                                blurRadius: 14,
-                                offset: const Offset(0, 6),
+                                color: const Color(0xFFFFBE3B).withValues(alpha: 0.48),
+                                blurRadius: 20,
+                                offset: const Offset(0, 7),
+                              ),
+                              BoxShadow(
+                                color: Colors.black.withValues(alpha: 0.16),
+                                blurRadius: 10,
+                                offset: const Offset(0, 4),
                               ),
                             ],
                           ),
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
+                              // Dark badge for high contrast "LIVE" cue.
+                              DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF102742),
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 7, vertical: 4),
+                                  child: Text(
+                                    'LIVE',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w900,
+                                      letterSpacing: 0.7,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 9),
                               Icon(
                                 Icons.videocam_rounded,
-                                color: Colors.white,
-                                size: 18,
+                                color: Color(0xFF2B1A00),
+                                size: 22,
                               ),
                               SizedBox(width: 8),
                               Flexible(
                                 child: Text(
-                                  'Book Consult',
+                                  'Call Doctor Now',
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF2B1A00),
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w900,
+                                    letterSpacing: 0.15,
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -739,7 +766,7 @@ class _TodayCommandCenter extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFFEAF9F3), Color(0xFFEDF5FF)],
+          colors: [AppColors.primaryPastel, AppColors.secondaryPastel],
         ),
         borderRadius: BorderRadius.circular(22),
         border: Border.all(
@@ -1152,164 +1179,6 @@ class _ChildProfileCard extends StatelessWidget {
               icon: const Icon(
                 Icons.edit_outlined,
                 size: 18,
-                color: AppColors.textSecondary,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _VisualStoriesStrip extends StatelessWidget {
-  const _VisualStoriesStrip();
-
-  @override
-  Widget build(BuildContext context) {
-    final stories = [
-      (
-        title: 'Doctor on call',
-        subtitle: 'Video consult in minutes',
-        imageAsset: 'assets/images/dashboard_story_consult.svg',
-        tone: AppColors.primary,
-      ),
-      (
-        title: 'Growth snapshot',
-        subtitle: 'See progress week by week',
-        imageAsset: 'assets/images/dashboard_story_growth.svg',
-        tone: AppColors.secondary,
-      ),
-      (
-        title: 'Vaccine timing',
-        subtitle: 'Stay ahead of due dates',
-        imageAsset: 'assets/images/dashboard_story_vaccine.svg',
-        tone: AppColors.softCoral,
-      ),
-      (
-        title: 'Meal moments',
-        subtitle: 'Healthy feeding suggestions',
-        imageAsset: 'assets/images/dashboard_story_nutrition.svg',
-        tone: AppColors.peach,
-      ),
-    ];
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Row(
-          children: [
-            Text(
-              'Care Stories',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w800,
-                color: AppColors.textPrimary,
-                letterSpacing: -0.25,
-              ),
-            ),
-            SizedBox(width: 8),
-            Icon(Icons.image_rounded, size: 18, color: AppColors.primary),
-          ],
-        ),
-        const SizedBox(height: 14),
-        SizedBox(
-          height: 164,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            physics: const BouncingScrollPhysics(),
-            itemCount: stories.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-            itemBuilder: (context, index) {
-              final story = stories[index];
-              return _DashboardImageCard(
-                title: story.title,
-                subtitle: story.subtitle,
-                imageAsset: story.imageAsset,
-                tone: story.tone,
-              );
-            },
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _DashboardImageCard extends StatelessWidget {
-  final String title;
-  final String subtitle;
-  final String imageAsset;
-  final Color tone;
-
-  const _DashboardImageCard({
-    required this.title,
-    required this.subtitle,
-    required this.imageAsset,
-    required this.tone,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 228,
-      clipBehavior: Clip.antiAlias,
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: tone.withValues(alpha: 0.18)),
-        boxShadow: [
-          BoxShadow(
-            color: tone.withValues(alpha: 0.22),
-            blurRadius: 18,
-            offset: const Offset(0, 7),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 102,
-            width: double.infinity,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    tone.withValues(alpha: 0.22),
-                    tone.withValues(alpha: 0.06),
-                  ],
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: SvgPicture.asset(
-                  imageAsset,
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 10, 12, 8),
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w800,
-                color: AppColors.textPrimary,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),
-            child: Text(
-              subtitle,
-              style: const TextStyle(
-                fontSize: 11.5,
-                fontWeight: FontWeight.w600,
                 color: AppColors.textSecondary,
               ),
             ),
@@ -3810,7 +3679,7 @@ class _MonaAIFab extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xFF1E8E6D), Color(0xFF2E76C4)],
+            colors: [AppColors.primaryDark, AppColors.secondary],
           ),
           borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.white.withValues(alpha: 0.45)),

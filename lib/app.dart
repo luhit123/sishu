@@ -407,16 +407,23 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
           minimum: const EdgeInsets.fromLTRB(14, 0, 14, 12),
           child: Container(
             decoration: BoxDecoration(
-              color: AppColors.surface.withValues(alpha: 0.95),
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Colors.white.withValues(alpha: 0.96),
+                  AppColors.secondaryPastel.withValues(alpha: 0.42),
+                ],
+              ),
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                color: AppColors.primary.withValues(alpha: 0.16),
+                color: AppColors.secondary.withValues(alpha: 0.18),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.09),
-                  blurRadius: 18,
-                  offset: const Offset(0, 8),
+                  color: AppColors.secondaryDark.withValues(alpha: 0.15),
+                  blurRadius: 24,
+                  offset: const Offset(0, 10),
                 ),
               ],
             ),
@@ -425,15 +432,14 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
               onDestinationSelected: _onTabTapped,
               backgroundColor: Colors.transparent,
               surfaceTintColor: Colors.transparent,
-              indicatorColor: AppColors.primary.withValues(alpha: 0.18),
+              indicatorColor: AppColors.primary.withValues(alpha: 0.16),
               height: 72,
               labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
               destinations: navItems
                   .map(
                     (item) => NavigationDestination(
-                      icon: Icon(item.icon, color: AppColors.textSecondary),
-                      selectedIcon:
-                          Icon(item.activeIcon, color: AppColors.primary),
+                      icon: Icon(item.icon),
+                      selectedIcon: Icon(item.activeIcon),
                       label: item.label,
                     ),
                   )
